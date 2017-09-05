@@ -44,12 +44,8 @@ public class MainActivity extends Activity {
         }
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerView.Adapter adapter;
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new AppAdapter(installedApps);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new AppAdapter(installedApps));
     }
 
     private List<App> getAllApplications(Context context, boolean includeSystemApps) {
@@ -66,6 +62,7 @@ public class MainActivity extends Activity {
 
             App newApp = new App();
             boolean isSystemApp = ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
+            
             newApp.setPackageName(pkgInfo.packageName);
             newApp.setName(pkgInfo.applicationInfo.loadLabel(packageManager).toString());
             newApp.setIcon(pkgInfo.applicationInfo.loadIcon(packageManager));
