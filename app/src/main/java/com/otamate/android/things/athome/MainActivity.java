@@ -49,7 +49,6 @@ public class MainActivity extends Activity {
     }
 
     private List<App> getAllApplications(Context context, boolean includeSystemApps) {
-
         PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> packages = packageManager.getInstalledPackages(0);
 
