@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
 
             App newApp = new App();
             boolean isSystemApp = ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
-            
+
             newApp.setPackageName(pkgInfo.packageName);
             newApp.setName(pkgInfo.applicationInfo.loadLabel(packageManager).toString());
             newApp.setIcon(pkgInfo.applicationInfo.loadIcon(packageManager));
