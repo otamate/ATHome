@@ -26,8 +26,6 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private AppAdapter appAdapter;
-    private List<App> installedApps;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
@@ -50,13 +48,13 @@ public class MainActivity extends Activity {
     public void onResume(){
         super.onResume();
 
-        installedApps = getAllApplications(getApplicationContext(), false);
+        List<App> installedApps = getAllApplications(getApplicationContext(), false);
+        AppAdapter appAdapter = new AppAdapter(installedApps);
 
         for (App app: installedApps) {
             Log.d(TAG, "Installed package: " + app.getPackageName());
             Log.d(TAG, "Installed App    : " + app.getName());
         }
-        appAdapter = new AppAdapter(installedApps);
 
         recyclerView.setAdapter(appAdapter);
         progressBar.setVisibility(View.GONE);
