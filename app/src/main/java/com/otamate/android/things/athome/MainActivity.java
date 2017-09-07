@@ -26,10 +26,10 @@ import java.util.List;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    AppAdapter appAdapter;
-    List<App> installedApps;
-    RecyclerView recyclerView;
-    ProgressBar progressBar;
+    private AppAdapter appAdapter;
+    private List<App> installedApps;
+    private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
         progressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
     }
-    
+
     private List<App> getAllApplications(Context context, boolean includeSystemApps) {
         PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> packages = packageManager.getInstalledPackages(0);
