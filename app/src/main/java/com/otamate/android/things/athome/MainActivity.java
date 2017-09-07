@@ -16,14 +16,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    AppAdapter appAdapter;
+    List<App> installedApps;
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +40,29 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        List<App> installedApps = getAllApplications(getApplicationContext(), false);
+        recyclerView = findViewById(R.id.recycler_view);
+        progressBar = findViewById(R.id.progress_bar);
 
-        for (App app: installedApps) {
-            if (!app.isSystemApp()) {
-                Log.d(TAG, "Installed package: " + app.getPackageName());
-                Log.d(TAG, "Installed App    : " + app.getName());
-            }
-        }
-
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new AppAdapter(installedApps));
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        installedApps = getAllApplications(getApplicationContext(), false);
+
+        for (App app: installedApps) {
+            Log.d(TAG, "Installed package: " + app.getPackageName());
+            Log.d(TAG, "Installed App    : " + app.getName());
+        }
+        appAdapter = new AppAdapter(installedApps);
+
+        recyclerView.setAdapter(appAdapter);
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+    
     private List<App> getAllApplications(Context context, boolean includeSystemApps) {
         PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> packages = packageManager.getInstalledPackages(0);
@@ -65,7 +80,6 @@ public class MainActivity extends Activity {
             newApp.setPackageName(pkgInfo.packageName);
             newApp.setName(pkgInfo.applicationInfo.loadLabel(packageManager).toString());
             newApp.setIcon(pkgInfo.applicationInfo.loadIcon(packageManager));
-            newApp.setSystemApp(isSystemApp);
 
             if (includeSystemApps || !isSystemApp) {
                 installedApps.add(newApp);

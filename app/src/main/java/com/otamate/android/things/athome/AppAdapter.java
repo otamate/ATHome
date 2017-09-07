@@ -19,7 +19,6 @@ import java.util.List;
 
 class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
     private static final String TAG = AppAdapter.class.getSimpleName();
-
     final private List<App> appList;
 
     AppAdapter(List<App> appList) {

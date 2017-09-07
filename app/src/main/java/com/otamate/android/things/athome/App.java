@@ -11,7 +11,6 @@ class App {
     private String packageName;
     private String name;
     private Drawable icon;
-    private boolean systemApp;
 
     String getPackageName() {
         return packageName;
@@ -35,13 +34,5 @@ class App {
 
     public void setIcon(Drawable icon) {
         this.icon = icon;
-    }
-
-    void setSystemApp(boolean systemApp) {
-        this.systemApp = systemApp;
-    }
-
-    boolean isSystemApp() {
-        return systemApp;
     }
 }
