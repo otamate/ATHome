@@ -60,7 +60,6 @@ class AppAdapter extends RecyclerView.Adapter<AppAdapter.AppViewHolder> {
 
                     Intent LaunchIntent = itemView.getContext().getPackageManager().getLaunchIntentForPackage(packageName.getText().toString());
                     itemView.getContext().startActivity( LaunchIntent );
-
                 }
             });
         }
